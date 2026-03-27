@@ -1,222 +1,1141 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="東京助手">
-
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/826/826070.png">
-
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;600&display=swap" rel="stylesheet">
-
-<!-- Icons -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>東京旅遊 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-body {
-  font-family: 'Noto Sans TC', sans-serif;
-  background-color: #f7f7f5;
-}
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-.nav-btn {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
-}
-.active {
-  color: #000;
-  font-weight: 600;
-}
+  :root {
+    --ink: #2c2c2c;
+    --paper: #f5f3ee;
+    --paper2: #ede9e1;
+    --muted: #8c8477;
+    --accent: #c9454a;
+    --accent2: #4a7c59;
+    --gold: #b08d57;
+    --border: #d9d3c7;
+    --white: #faf9f6;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; height: 100%; overflow-x: hidden; }
+  body { padding-bottom: 80px; }
+
+  /* Nav */
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--white); border-top: 1px solid var(--border); display: flex; }
+  .nav-btn { flex: 1; padding: 10px 4px 8px; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; transition: color 0.2s; color: var(--muted); background: none; border: none; font-size: 10px; font-family: 'Noto Sans JP', sans-serif; font-weight: 400; letter-spacing: 0.05em; }
+  .nav-btn.active { color: var(--accent); }
+  .nav-btn i { font-size: 18px; }
+
+  /* Page */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* Header */
+  .trip-header { background: var(--white); padding: 28px 20px 20px; border-bottom: 1px solid var(--border); text-align: center; }
+  .trip-header .serif { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 22px; letter-spacing: 0.15em; color: var(--ink); }
+  .trip-header .sub { font-size: 11px; letter-spacing: 0.2em; color: var(--muted); margin-top: 4px; }
+  .trip-header .dates { font-size: 11px; color: var(--gold); letter-spacing: 0.1em; margin-top: 8px; }
+
+  /* Section headers */
+  .sec-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); padding: 18px 20px 8px; }
+
+  /* Flight card */
+  .flight-card { margin: 0 16px 16px; background: var(--white); border-radius: 4px; border: 1px solid var(--border); overflow: hidden; }
+  .flight-card-header { background: var(--ink); color: var(--paper); padding: 10px 16px; font-size: 11px; letter-spacing: 0.15em; display: flex; justify-content: space-between; align-items: center; }
+  .flight-card-body { padding: 16px; display: flex; align-items: center; gap: 12px; }
+  .flight-time { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 300; }
+  .flight-arrow { color: var(--muted); font-size: 13px; flex: 1; text-align: center; position: relative; }
+  .flight-arrow::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border); transform: translateY(-50%); }
+  .flight-arrow i { background: var(--white); position: relative; padding: 0 6px; }
+  .flight-city { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+  .flight-num { font-size: 12px; color: var(--gold); letter-spacing: 0.1em; }
+
+  /* Day cards */
+  .day-card { margin: 0 16px 12px; background: var(--white); border-radius: 4px; border: 1px solid var(--border); overflow: hidden; }
+  .day-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+  .day-date { font-family: 'Noto Serif JP', serif; font-size: 15px; font-weight: 400; letter-spacing: 0.05em; }
+  .day-title { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; margin-top: 2px; }
+  .day-toggle { color: var(--muted); font-size: 12px; transition: transform 0.3s; }
+  .day-toggle.open { transform: rotate(180deg); }
+  .day-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
+  .day-body.open { display: block; }
+
+  /* Timeline */
+  .timeline { margin-top: 14px; }
+  .tl-item { display: flex; gap: 12px; margin-bottom: 14px; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; min-width: 28px; }
+  .tl-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); border: 2px solid var(--white); flex-shrink: 0; margin-top: 3px; }
+  .tl-dot.accent { background: var(--accent); }
+  .tl-dot.green { background: var(--accent2); }
+  .tl-dot.gold { background: var(--gold); }
+  .tl-line { flex: 1; width: 1px; background: var(--border); margin-top: 3px; }
+  .tl-content { flex: 1; padding-bottom: 2px; }
+  .tl-tag { display: inline-block; font-size: 9px; letter-spacing: 0.1em; padding: 2px 6px; border-radius: 2px; margin-bottom: 4px; }
+  .tag-transport { background: #e8f0f8; color: #4a6fa5; }
+  .tag-sight { background: #f0ede8; color: #7a6248; }
+  .tag-food { background: #eaf0ea; color: #4a7c59; }
+  .tag-night { background: #1c1c2e; color: #a89ec9; }
+  .tag-warn { background: #fef3e2; color: #b08d57; }
+  .tl-title { font-size: 13px; font-weight: 500; line-height: 1.4; }
+  .tl-desc { font-size: 11px; color: var(--muted); line-height: 1.6; margin-top: 3px; }
+  .tl-alert { background: #fff5f5; border-left: 3px solid var(--accent); padding: 8px 10px; border-radius: 0 4px 4px 0; margin-top: 6px; font-size: 11px; color: var(--accent); }
+  .tl-info { background: #f5f8f5; border-left: 3px solid var(--accent2); padding: 8px 10px; border-radius: 0 4px 4px 0; margin-top: 6px; font-size: 11px; color: var(--accent2); }
+  .map-btn { display: inline-flex; align-items: center; gap: 5px; margin-top: 7px; font-size: 11px; color: var(--accent2); border: 1px solid var(--accent2); border-radius: 2px; padding: 4px 10px; text-decoration: none; }
+
+  /* Guide page */
+  .guide-item { margin: 0 16px 16px; background: var(--white); border-radius: 4px; border: 1px solid var(--border); overflow: hidden; }
+  .guide-img-header { height: 80px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+  .guide-body { padding: 16px; }
+  .guide-name { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 400; letter-spacing: 0.1em; }
+  .guide-sub { font-size: 10px; color: var(--gold); letter-spacing: 0.15em; margin-top: 2px; }
+  .guide-text { font-size: 12px; line-height: 1.9; color: #4a4540; margin-top: 10px; }
+  .guide-fact { background: var(--paper); border-radius: 3px; padding: 10px 12px; margin-top: 10px; }
+  .guide-fact-label { font-size: 9px; letter-spacing: 0.2em; color: var(--gold); }
+  .guide-fact-text { font-size: 11px; color: var(--ink); line-height: 1.7; margin-top: 4px; }
+  .guide-map { margin-top: 12px; border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
+  .guide-map iframe { display: block; width: 100%; height: 200px; }
+
+  /* Wallet */
+  .wallet-card { margin: 0 16px 14px; background: var(--white); border-radius: 4px; border: 1px solid var(--border); padding: 18px; }
+  .wallet-title { font-family: 'Noto Serif JP', serif; font-size: 14px; letter-spacing: 0.1em; color: var(--ink); }
+  .rate-input { width: 100%; border: 1px solid var(--border); border-radius: 3px; padding: 10px 12px; font-size: 15px; font-family: 'Noto Sans JP', sans-serif; background: var(--paper); color: var(--ink); outline: none; margin-top: 4px; }
+  .rate-input:focus { border-color: var(--gold); }
+  .rate-row { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+  .rate-label { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; }
+  .rate-flag { font-size: 18px; }
+  .calc-display { background: var(--ink); color: var(--paper); border-radius: 3px; padding: 14px 16px; margin-top: 12px; text-align: right; }
+  .calc-expr { font-size: 12px; color: var(--muted); min-height: 16px; }
+  .calc-result { font-family: 'Noto Serif JP', serif; font-size: 26px; font-weight: 300; margin-top: 4px; }
+  .calc-twd { font-size: 13px; color: var(--gold); margin-top: 4px; }
+  .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+  .calc-btn { background: var(--paper); border: 1px solid var(--border); border-radius: 3px; padding: 14px 0; text-align: center; font-size: 16px; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; color: var(--ink); transition: background 0.15s; }
+  .calc-btn:active { background: var(--border); }
+  .calc-btn.op { color: var(--gold); font-weight: 500; }
+  .calc-btn.eq { background: var(--accent); color: white; border-color: var(--accent); }
+  .calc-btn.clear { color: var(--accent); }
+  .rate-setting { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .rate-setting input { width: 80px; border: 1px solid var(--border); border-radius: 3px; padding: 6px 10px; font-size: 13px; background: var(--paper); color: var(--ink); outline: none; text-align: center; }
+
+  /* Info */
+  .info-card { margin: 0 16px 14px; background: var(--white); border-radius: 4px; border: 1px solid var(--border); overflow: hidden; }
+  .info-card-header { padding: 12px 16px; background: var(--paper); border-bottom: 1px solid var(--border); font-size: 11px; letter-spacing: 0.15em; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .info-card-header i { color: var(--gold); }
+  .info-card-body { padding: 14px 16px; }
+  .info-link { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); }
+  .info-link:last-child { border-bottom: none; }
+  .info-link-label { font-size: 13px; }
+  .info-link-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .info-link i.fa-chevron-right { color: var(--border); font-size: 10px; }
+  .emergency-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .emergency-item:last-child { border-bottom: none; }
+  .emergency-num { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 400; color: var(--accent); min-width: 60px; }
+  .emergency-label { font-size: 12px; }
+  .emergency-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .tip-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; line-height: 1.7; }
+  .tip-item:last-child { border-bottom: none; }
+  .tip-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
 </style>
 </head>
+<body>
 
-<body class="text-gray-700">
+<!-- ===== PLAN PAGE ===== -->
+<div id="page-plan" class="page active">
+  <div class="trip-header">
+    <div class="serif">東京 · 春旅</div>
+    <div class="sub">TOKYO SPRING JOURNEY</div>
+    <div class="dates">4月3日 — 4月12日 · 2025</div>
+  </div>
 
-<!-- Header -->
-<header class="p-4 text-center text-lg font-semibold">
-東京旅行助手 ✈️
-</header>
+  <!-- Flights -->
+  <div class="sec-label">✈ 航班資訊</div>
+  <div class="flight-card">
+    <div class="flight-card-header">
+      <span>去程</span><span class="flight-num">CX 450</span>
+    </div>
+    <div class="flight-card-body">
+      <div><div class="flight-time">13:00</div><div class="flight-city">台北 TPE</div></div>
+      <div class="flight-arrow"><i class="fas fa-plane"></i></div>
+      <div style="text-align:right"><div class="flight-time">17:15</div><div class="flight-city">成田 NRT</div></div>
+    </div>
+  </div>
+  <div class="flight-card">
+    <div class="flight-card-header">
+      <span>回程</span><span class="flight-num">CI 0101</span>
+    </div>
+    <div class="flight-card-body">
+      <div><div class="flight-time">14:30</div><div class="flight-city">成田 NRT</div></div>
+      <div class="flight-arrow"><i class="fas fa-plane" style="transform:scaleX(-1)"></i></div>
+      <div style="text-align:right"><div class="flight-time">17:15</div><div class="flight-city">台北 TPE</div></div>
+    </div>
+  </div>
+  <div style="margin: 0 16px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
+    <i class="fas fa-hotel" style="color: var(--gold); font-size: 18px;"></i>
+    <div>
+      <div style="font-size: 13px; font-weight: 500;">Hotel Mystays Nippori</div>
+      <div style="font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 0.05em;">日暮里 · 全程住宿</div>
+    </div>
+    <a href="https://maps.google.com/?q=Hotel+Mystays+Nippori" target="_blank" style="margin-left: auto;" class="map-btn"><i class="fas fa-map-marker-alt"></i> 地圖</a>
+  </div>
 
-<!-- Content -->
-<div id="content" class="p-4 pb-20"></div>
+  <!-- Daily Schedule -->
+  <div class="sec-label">📅 每日行程</div>
+
+  <!-- 4/3 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月3日（四）</div><div class="day-title">抵達日 · 上野夜櫻</div></div>
+      <i class="fas fa-chevron-down day-toggle open"></i>
+    </div>
+    <div class="day-body open">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot accent"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">✈ 航班</span>
+            <div class="tl-title">CX450 起飛 13:00 → 抵達 17:15</div>
+            <div class="tl-desc">台北 → 東京成田</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 交通</span>
+            <div class="tl-title">京成 Skyliner → 日暮里</div>
+            <div class="tl-desc">已購票直接掃臉進站 · 約 40 分鐘</div>
+            <div class="tl-info">💡 持電子票卡，成田第一/第二航廈皆有搭乘處</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">🏨 Check-in</span>
+            <div class="tl-title">Hotel Mystays Nippori</div>
+            <a href="https://maps.google.com/?q=Hotel+Mystays+Nippori" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot gold"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-night">🌙 夜間</span>
+            <div class="tl-title">上野公園 夜櫻</div>
+            <div class="tl-desc">步行或 JR 1站</div>
+            <a href="https://maps.google.com/?q=上野公園" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/4 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月4日（五）</div><div class="day-title">⚠️ 富士山一日遊（早起）</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="tl-alert">⚠️ 今日需早起！請務必 06:50 前出發</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot accent"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-warn">⏰ 重要時間</span>
+            <div class="tl-title">06:50 日暮里出發</div>
+            <div class="tl-desc">JR 山手線（內回り）→ 東京車站 · 約 12 分鐘</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot accent"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-warn">📍 集合</span>
+            <div class="tl-title" style="color: var(--accent);">07:10 東京站南口警察署前</div>
+            <div class="tl-desc">預留找路時間，勿遲到！</div>
+            <a href="https://maps.google.com/?q=東京駅南口" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">🗻 景點</span>
+            <div class="tl-title">富士山一日遊</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot gold"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-night">🌙 夜間</span>
+            <div class="tl-title">日本橋 夜櫻</div>
+            <div class="tl-desc">東京站 → 日本橋 · JR or 地鐵 5分鐘</div>
+            <div class="tl-alert">⚠️ 這天會累，建議賞完夜櫻早回飯店</div>
+            <a href="https://maps.google.com/?q=日本橋+桜" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/5 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月5日（六）</div><div class="day-title">淺草 + 晴空塔</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 交通</span>
+            <div class="tl-title">日暮里 → 淺草</div>
+            <div class="tl-desc">JR → 上野 → 地鐵銀座線 · 約 20 分鐘</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">⛩ 景點</span>
+            <div class="tl-title">淺草寺</div>
+            <a href="https://maps.google.com/?q=浅草寺" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-food">🛍 購物</span>
+            <div class="tl-title">仲見世通</div>
+            <div class="tl-desc">淺草著名商店街，各式和風小物、零食</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">🗼 景點</span>
+            <div class="tl-title">東京晴空塔</div>
+            <div class="tl-desc">步行約 15 分鐘可達</div>
+            <a href="https://maps.google.com/?q=東京スカイツリー" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot gold"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-night">🌙 夜間</span>
+            <div class="tl-title">隅田公園 夜櫻</div>
+            <a href="https://maps.google.com/?q=隅田公園" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/6 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月6日（日）</div><div class="day-title">皇居 + 東京站 + 銀座 🔥</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="tl-info">✨ 今天是「最順路黃金日」行程安排超完美！</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 交通</span>
+            <div class="tl-title">日暮里 → 九段下</div>
+            <div class="tl-desc">JR + 地鐵 · 約 25 分鐘</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">🌸 景點</span>
+            <div class="tl-title">千鳥之淵（白天）</div>
+            <div class="tl-desc">東京最著名賞櫻聖地，護城河沿岸滿開</div>
+            <a href="https://maps.google.com/?q=千鳥ヶ淵" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 移動</span>
+            <div class="tl-title">九段下 → 東京站</div>
+            <div class="tl-desc">地鐵 · 約 10 分鐘</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-food">🛍 東京站地下</span>
+            <div class="tl-title">東京一番街 / 拉麵街 / KITTE 丸之內</div>
+            <a href="https://maps.google.com/?q=東京駅一番街" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">🛍 傍晚</span>
+            <div class="tl-title">銀座</div>
+            <div class="tl-desc">東京站 → 銀座 · JR/地鐵 約 5 分鐘</div>
+            <a href="https://maps.google.com/?q=銀座" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot gold"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-night">🌙 夜間</span>
+            <div class="tl-title">千鳥之淵 夜櫻</div>
+            <div class="tl-desc">回千鳥之淵欣賞夜間點燈</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/7 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月7日（一）</div><div class="day-title">原宿 + 澀谷</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 交通</span>
+            <div class="tl-title">日暮里 → 原宿</div>
+            <div class="tl-desc">JR 山手線 · 約 30 分鐘</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">⛩ 景點</span>
+            <div class="tl-title">明治神宮</div>
+            <a href="https://maps.google.com/?q=明治神宮" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-food">🛍 購物</span>
+            <div class="tl-title">竹下通 + 表參道</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot accent"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-warn">⏰ 預約</span>
+            <div class="tl-title" style="color: var(--accent);">15:40 SHIBUYA SKY</div>
+            <div class="tl-desc">原宿 → 澀谷步行 15 分鐘 · 勿遲到！</div>
+            <a href="https://maps.google.com/?q=渋谷スクランブルスクエア" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot gold"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-night">🌙 夜間</span>
+            <div class="tl-title">澀谷十字路口</div>
+            <a href="https://maps.google.com/?q=渋谷スクランブル交差点" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/8 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月8日（二）</div><div class="day-title">文青日 · 代官山 + 中目黑</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 交通</span>
+            <div class="tl-title">日暮里 → 代官山</div>
+            <div class="tl-desc">JR → 澀谷轉東急線 · 約 35 分鐘</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">📚 景點</span>
+            <div class="tl-title">代官山 蔦屋書店</div>
+            <div class="tl-desc">東京最美書店，文青朝聖地</div>
+            <a href="https://maps.google.com/?q=蔦屋書店代官山" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot gold"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-night">🌸 夜間</span>
+            <div class="tl-title">中目黑 夜櫻</div>
+            <div class="tl-desc">代官山步行 15 分鐘 · 目黑川兩岸滿開</div>
+            <a href="https://maps.google.com/?q=中目黒+桜" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/9 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月9日（三）</div><div class="day-title">新宿 · 夜景</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 交通</span>
+            <div class="tl-title">日暮里 → 新宿</div>
+            <div class="tl-desc">JR 山手線 · 約 25 分鐘</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">🌿 景點</span>
+            <div class="tl-title">新宿御苑</div>
+            <div class="tl-desc">東京必訪賞花名所</div>
+            <a href="https://maps.google.com/?q=新宿御苑" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">🎌 景點</span>
+            <div class="tl-title">歌舞伎町</div>
+            <a href="https://maps.google.com/?q=歌舞伎町" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot gold"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-night">🌙 夜間</span>
+            <div class="tl-title">東京都廳展望台</div>
+            <div class="tl-desc">免費入場，俯瞰東京夜景</div>
+            <a href="https://maps.google.com/?q=東京都庁展望室" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/10 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月10日（四）</div><div class="day-title">⚠️ Outlet 木更津（較遠）</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="tl-alert">⚠️ 今日行程較遠，約 1.5 小時車程，建議早出發</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 交通</span>
+            <div class="tl-title">日暮里 → 木更津</div>
+            <div class="tl-desc">JR → 東京 → 巴士 · 約 1.5 小時</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-food">🛍 購物</span>
+            <div class="tl-title">三井 Outlet Park 木更津</div>
+            <a href="https://maps.google.com/?q=三井アウトレットパーク木更津" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/11 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月11日（五）</div><div class="day-title">秋葉原 · 電器動漫</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 交通</span>
+            <div class="tl-title">日暮里 → 秋葉原</div>
+            <div class="tl-desc">JR 山手線 · 約 10 分鐘</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot green"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-sight">🎮 景點</span>
+            <div class="tl-title">秋葉原電気街</div>
+            <div class="tl-desc">電器 / 動漫 / 免稅購物</div>
+            <a href="https://maps.google.com/?q=秋葉原電気街" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4/12 -->
+  <div class="day-card" style="margin-bottom: 20px;">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div><div class="day-date">4月12日（六）</div><div class="day-title">✈ 回程日</div></div>
+      <i class="fas fa-chevron-down day-toggle"></i>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">🚇 前往機場</span>
+            <div class="tl-title">日暮里 → 機場</div>
+            <div class="tl-desc">Skyliner 或 京急線</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot accent"></div></div>
+          <div class="tl-content">
+            <span class="tl-tag tag-transport">✈ 回程</span>
+            <div class="tl-title">CI0101 起飛 14:30 → 抵台 17:15</div>
+            <div class="tl-desc">成田 → 台北</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== GUIDE PAGE ===== -->
+<div id="page-guide" class="page">
+  <div class="trip-header">
+    <div class="serif">深度導覽</div>
+    <div class="sub">TRAVEL GUIDE</div>
+  </div>
+
+  <div class="sec-label">📖 景點介紹</div>
+
+  <div class="guide-item">
+    <div class="guide-img-header" style="background: linear-gradient(135deg, #f0ede8, #e8e2d9);">⛩</div>
+    <div class="guide-body">
+      <div class="guide-name">淺草寺</div>
+      <div class="guide-sub">SENSŌ-JI TEMPLE · TOKYO'S OLDEST</div>
+      <div class="guide-text">建於推古天皇36年（628年），是東京都最古老的寺廟。相傳兩名漁夫在隅田川中撈起一尊觀音像，當地豪族供奉後寺廟逐漸發展，成為淺草地區的信仰核心。每年吸引約三千萬人次造訪，是世界訪客最多的神聖場所之一。</div>
+      <div class="guide-fact">
+        <div class="guide-fact-label">✦ 冷知識</div>
+        <div class="guide-fact-text">雷門（Kaminarimon）的大燈籠重達130公斤，底部雕刻著精細的龍與鳳凰圖樣。現在懸掛的燈籠是1960年由松下幸之助捐贈重建。</div>
+      </div>
+      <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <a href="https://maps.google.com/?q=浅草寺" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+        <a href="https://www.senso-ji.jp" target="_blank" class="map-btn" style="color: var(--gold); border-color: var(--gold);"><i class="fas fa-globe"></i> 官方網站</a>
+      </div>
+      <div class="guide-map">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=139.7930,35.7120,139.7990,35.7160&layer=mapnik&marker=35.7148,139.7967" style="border: 0;"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-item">
+    <div class="guide-img-header" style="background: linear-gradient(135deg, #eaf0ea, #d9e8d9);">🌸</div>
+    <div class="guide-body">
+      <div class="guide-name">千鳥之淵</div>
+      <div class="guide-sub">CHIDORIGAFUCHI · CHERRY BLOSSOM HAVEN</div>
+      <div class="guide-text">千鳥之淵是皇居護城河的西北側，全長約700公尺的賞花步道。每年春季約350棵染井吉野（Somei Yoshino）盛放，花瓣飄落水面如粉雪，被譽為東京最夢幻的賞櫻勝地。夜晚在燈光照映下，粉色花瓣倒映水中，景色令人屏息。</div>
+      <div class="guide-fact">
+        <div class="guide-fact-label">✦ 旅行建議</div>
+        <div class="guide-fact-text">可租借腳踏式遊船（4月期間開放，約800円/30分鐘），從水面仰望垂落的櫻花枝條，角度絕美！建議白天先踩點，夜間點燈後再回訪一次。</div>
+      </div>
+      <a href="https://maps.google.com/?q=千鳥ヶ淵" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+    </div>
+  </div>
+
+  <div class="guide-item">
+    <div class="guide-img-header" style="background: linear-gradient(135deg, #e8eaf0, #d9def0);">🗼</div>
+    <div class="guide-body">
+      <div class="guide-name">東京晴空塔</div>
+      <div class="guide-sub">TOKYO SKYTREE · 634M</div>
+      <div class="guide-text">高度634公尺，是世界第二高的獨立塔（僅次於迪拜哈里發塔），也是全球最高的電波塔。「634」的數字巧妙對應「むさし」（武藏），呼應東京舊地名武藏國。塔身設計靈感來自日本傳統建築的「反り」（sorin）技法，外觀線條從方形基底漸轉為圓形。</div>
+      <div class="guide-fact">
+        <div class="guide-fact-label">✦ 展望台資訊</div>
+        <div class="guide-fact-text">天望甲板 350F：2,100円 / 天望迴廊 450F：追加1,000円。建議提前網路購票，現場排隊時間可能超過1小時。晴天可見富士山。</div>
+      </div>
+      <a href="https://maps.google.com/?q=東京スカイツリー" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+      <a href="https://www.tokyo-skytree.jp/tw/" target="_blank" class="map-btn" style="color: var(--gold); border-color: var(--gold); margin-left: 8px;"><i class="fas fa-globe"></i> 購票</a>
+    </div>
+  </div>
+
+  <div class="guide-item">
+    <div class="guide-img-header" style="background: linear-gradient(135deg, #f5f0e8, #ede0c8);">⛩</div>
+    <div class="guide-body">
+      <div class="guide-name">明治神宮</div>
+      <div class="guide-sub">MEIJI JINGŪ · FOREST SANCTUARY</div>
+      <div class="guide-text">建於1920年，供奉明治天皇與昭憲皇太后。神宮境內70公頃的森林由全國各地捐贈的約十萬棵樹木組成，歷經百年自然演替，已形成完整的原始林生態。每年初詣（新年參拜）吸引超過300萬人，是全日本最多人參拜的神社。</div>
+      <div class="guide-fact">
+        <div class="guide-fact-label">✦ 打卡建議</div>
+        <div class="guide-fact-text">參道上的木製鳥居（大鳥居）是日本最大的木製鳥居之一，使用台灣阿里山的扁柏（ヒノキ）製作。清晨光線最美，建議早晨前往可避開人潮。</div>
+      </div>
+      <a href="https://maps.google.com/?q=明治神宮" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+    </div>
+  </div>
+
+  <div class="guide-item">
+    <div class="guide-img-header" style="background: linear-gradient(135deg, #1c1c2e, #2c2040);">🌃</div>
+    <div class="guide-body">
+      <div class="guide-name">澀谷 SHIBUYA SKY</div>
+      <div class="guide-sub">SHIBUYA SCRAMBLE SQUARE · ROOFTOP</div>
+      <div class="guide-text">位於澀谷之謎（Scramble Square）46樓至屋頂的展望設施，海拔約229公尺。屋頂為完全開放式設計，在無遮蔽的天空下俯瞰東京全景，可同時看見富士山、東京鐵塔、晴空塔三大地標。夕陽時分與夜景皆為絕景。</div>
+      <div class="guide-fact">
+        <div class="guide-fact-label">✦ 注意事項</div>
+        <div class="guide-fact-text">你的預約時間是 15:40，建議 15:20 前抵達澀谷 Scramble Square。若天氣不佳（強風），屋頂可能關閉。建議攜帶外套，高處風大。</div>
+      </div>
+      <a href="https://maps.google.com/?q=渋谷スクランブルスクエア" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+    </div>
+  </div>
+
+  <div class="guide-item" style="margin-bottom: 20px;">
+    <div class="guide-img-header" style="background: linear-gradient(135deg, #e8f0e8, #d0e4d0);">📚</div>
+    <div class="guide-body">
+      <div class="guide-name">代官山 蔦屋書店</div>
+      <div class="guide-sub">DAIKANYAMA T-SITE · TSUTAYA BOOKS</div>
+      <div class="guide-text">由建築師 Klein Dytham Architecture 設計，三棟相連的白色建築以LOGO字型排列，外牆鏤空花格圖案為最大特色。不只是書店，更是結合咖啡廳（Starbucks）、雜貨、黑膠唱片的生活風格空間。被美國《Time》雜誌選為「世界最美書店之一」。</div>
+      <div class="guide-fact">
+        <div class="guide-fact-label">✦ 周邊推薦</div>
+        <div class="guide-fact-text">步行15分鐘即達中目黑，目黑川沿岸的咖啡廳、選品店是文青聚集地。春季滿開的目黑川夜櫻是東京頂級賞花體驗，建議傍晚時分前往。</div>
+      </div>
+      <a href="https://maps.google.com/?q=蔦屋書店代官山" target="_blank" class="map-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WALLET PAGE ===== -->
+<div id="page-wallet" class="page">
+  <div class="trip-header">
+    <div class="serif">匯率換算</div>
+    <div class="sub">CURRENCY CALCULATOR</div>
+  </div>
+
+  <div class="sec-label">💴 即時換算</div>
+  <div class="wallet-card">
+    <div class="wallet-title">日幣 → 台幣換算機</div>
+    <div class="rate-setting" style="margin-top: 12px;">
+      <span style="font-size: 11px; color: var(--muted);">自訂匯率</span>
+      <span class="rate-flag">🇯🇵</span>
+      <span style="font-size: 11px;">100 JPY =</span>
+      <span class="rate-flag">🇹🇼</span>
+      <input type="number" id="rateInput" value="0.214" step="0.001" onchange="updateRate()">
+      <span style="font-size: 11px;">TWD</span>
+    </div>
+
+    <div class="calc-display">
+      <div class="calc-expr" id="calcExpr">—</div>
+      <div class="calc-result" id="calcResult">0 <span style="font-size: 14px; color: var(--muted);">JPY</span></div>
+      <div class="calc-twd" id="calcTwd">≈ NT$ 0</div>
+    </div>
+
+    <div class="calc-grid">
+      <button class="calc-btn clear" onclick="calcInput('C')">C</button>
+      <button class="calc-btn op" onclick="calcInput('(')">(</button>
+      <button class="calc-btn op" onclick="calcInput(')')">)</button>
+      <button class="calc-btn op" onclick="calcInput('/')">÷</button>
+
+      <button class="calc-btn" onclick="calcInput('7')">7</button>
+      <button class="calc-btn" onclick="calcInput('8')">8</button>
+      <button class="calc-btn" onclick="calcInput('9')">9</button>
+      <button class="calc-btn op" onclick="calcInput('*')">×</button>
+
+      <button class="calc-btn" onclick="calcInput('4')">4</button>
+      <button class="calc-btn" onclick="calcInput('5')">5</button>
+      <button class="calc-btn" onclick="calcInput('6')">6</button>
+      <button class="calc-btn op" onclick="calcInput('-')">−</button>
+
+      <button class="calc-btn" onclick="calcInput('1')">1</button>
+      <button class="calc-btn" onclick="calcInput('2')">2</button>
+      <button class="calc-btn" onclick="calcInput('3')">3</button>
+      <button class="calc-btn op" onclick="calcInput('+')">+</button>
+
+      <button class="calc-btn" onclick="calcInput('0')" style="grid-column: span 2;">0</button>
+      <button class="calc-btn" onclick="calcInput('.')">.</button>
+      <button class="calc-btn eq" onclick="calcEqual()">=</button>
+    </div>
+  </div>
+
+  <div class="sec-label">💡 常用金額參考</div>
+  <div class="wallet-card" style="padding: 0; overflow: hidden;">
+    <div id="quickRefs">
+    </div>
+  </div>
+
+  <div class="sec-label">📊 常見消費</div>
+  <div class="wallet-card" style="padding: 14px 16px; margin-bottom: 20px;">
+    <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 8px 0; color: var(--muted);">便利商店飯糰</td>
+        <td style="text-align: right; font-weight: 500;">¥130–180</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 8px 0; color: var(--muted);">拉麵一碗</td>
+        <td style="text-align: right; font-weight: 500;">¥800–1,200</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 8px 0; color: var(--muted);">地鐵單程</td>
+        <td style="text-align: right; font-weight: 500;">¥168–320</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 8px 0; color: var(--muted);">Skyliner 單程</td>
+        <td style="text-align: right; font-weight: 500;">¥2,520</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: var(--muted);">晴空塔展望台</td>
+        <td style="text-align: right; font-weight: 500;">¥2,100</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== INFO PAGE ===== -->
+<div id="page-info" class="page">
+  <div class="trip-header">
+    <div class="serif">旅遊資訊</div>
+    <div class="sub">TRAVEL INFO</div>
+  </div>
+
+  <div class="sec-label">🌤 天氣資訊</div>
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-cloud-sun"></i> 氣象連結</div>
+    <div class="info-card-body">
+      <a href="https://www.jma.go.jp/jma/indexe.html" target="_blank" class="info-link">
+        <div><div class="info-link-label">日本氣象廳</div><div class="info-link-sub">Japan Meteorological Agency</div></div>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+      <a href="https://www.weatheronline.co.uk/weather/maps/city?LANG=en&CEL=C&SI=mph&TYP=prg&CONT=asien&REGION=0115&LAND=JA&Stadt=Tokyo&R=0&LEVEL=162&HIGHT=0&WMO=47662&ART=tabelle&PRFN=ALL&ZNST=LAND" target="_blank" class="info-link">
+        <div><div class="info-link-label">東京10日天氣預報</div><div class="info-link-sub">Weather Online · Tokyo</div></div>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+      <a href="https://www.weather.gov.tw/Intl/forecast/city.asp?SCITY=RJAA" target="_blank" class="info-link">
+        <div><div class="info-link-label">中央氣象署東京預報</div><div class="info-link-sub">台灣中央氣象署</div></div>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-seedling"></i> 花況追蹤</div>
+    <div class="info-card-body">
+      <a href="https://sakura.weathermap.jp" target="_blank" class="info-link">
+        <div><div class="info-link-label">日本全國花況地圖</div><div class="info-link-sub">Weathermap Sakura Forecast</div></div>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+      <a href="https://www.yelp.com/search?find_desc=cherry+blossom&find_loc=Tokyo" target="_blank" class="info-link">
+        <div><div class="info-link-label">今日花況報告</div><div class="info-link-sub">實況開花情報</div></div>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="sec-label">🆘 緊急聯絡</div>
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-phone-alt"></i> 日本緊急電話</div>
+    <div class="info-card-body">
+      <div class="emergency-item">
+        <div class="emergency-num">110</div>
+        <div><div class="emergency-label">警察</div><div class="emergency-sub">Police · 遺失物、犯罪報案</div></div>
+      </div>
+      <div class="emergency-item">
+        <div class="emergency-num">119</div>
+        <div><div class="emergency-label">救護車 / 消防</div><div class="emergency-sub">Ambulance · 急救、火災</div></div>
+      </div>
+      <div class="emergency-item">
+        <div class="emergency-num">#9110</div>
+        <div><div class="emergency-label">警察非緊急</div><div class="emergency-sub">遺失物、諮詢</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-flag"></i> 台灣駐日機構</div>
+    <div class="info-card-body">
+      <a href="tel:+81332803366" class="info-link">
+        <div>
+          <div class="info-link-label">台北駐日經濟文化代表處</div>
+          <div class="info-link-sub">+81-3-3280-3366（一般）</div>
+        </div>
+        <i class="fas fa-phone" style="color: var(--accent2);"></i>
+      </a>
+      <a href="tel:+819030697621" class="info-link">
+        <div>
+          <div class="info-link-label">緊急聯絡（24小時）</div>
+          <div class="info-link-sub">+81-90-3069-7621</div>
+        </div>
+        <i class="fas fa-phone" style="color: var(--accent);"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="sec-label">📋 旅遊注意事項</div>
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-ban"></i> 日本入境禁止攜帶物品</div>
+    <div class="info-card-body">
+      <div class="tip-item"><span class="tip-icon">🔴</span><span>未申報現金超過 100 萬日幣（需申報）</span></div>
+      <div class="tip-item"><span class="tip-icon">🔴</span><span>毒品、大麻（含 CBD 部分產品）：刑事重罰</span></div>
+      <div class="tip-item"><span class="tip-icon">🔴</span><span>偽造品、盜版商品不得攜帶入境</span></div>
+      <div class="tip-item"><span class="tip-icon">🔴</span><span>部分藥物需事先申請：含可待因、某些感冒藥</span></div>
+      <div class="tip-item"><span class="tip-icon">🟡</span><span>肉類食品（含火腿、香腸）原則禁止攜入</span></div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-lightbulb"></i> 日本旅遊禮儀</div>
+    <div class="info-card-body">
+      <div class="tip-item"><span class="tip-icon">🚇</span><span>電車內保持安靜，手機調靜音，不通話</span></div>
+      <div class="tip-item"><span class="tip-icon">🚶</span><span>手扶梯靠左站立（東京），右側留給急行者</span></div>
+      <div class="tip-item"><span class="tip-icon">🚭</span><span>街道不可隨意吸菸，須至指定吸菸區</span></div>
+      <div class="tip-item"><span class="tip-icon">🗑</span><span>外食垃圾帶回便利商店丟棄，街上幾乎無垃圾桶</span></div>
+      <div class="tip-item"><span class="tip-icon">💳</span><span>許多小店仍為現金優先，建議隨時備有紙鈔</span></div>
+      <div class="tip-item"><span class="tip-icon">📸</span><span>寺廟境內請尊重禁拍標示，祈禱時勿打擾</span></div>
+      <div class="tip-item"><span class="tip-icon">♨️</span><span>溫泉 / 錢湯禁止有刺青者入場（多數場所）</span></div>
+    </div>
+  </div>
+
+  <div class="sec-label">💊 攜帶入境台灣上限</div>
+
+  <!-- 食品 -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-cookie-bite"></i> 食品（含錠狀膠囊保健品）</div>
+    <div class="info-card-body">
+      <div style="font-size: 10px; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 8px; padding-top: 2px;">▎ 錠狀、膠囊狀食品（保健品、益生菌等）</div>
+      <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">每種品項上限</td>
+          <td style="text-align: right; font-weight: 500;">12 瓶（盒）</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: var(--muted);">所有品項合計上限</td>
+          <td style="text-align: right; font-weight: 500;">36 瓶（盒）</td>
+        </tr>
+      </table>
+      <div style="font-size: 10px; letter-spacing: 0.12em; color: var(--gold); margin: 12px 0 8px; padding-top: 4px; border-top: 1px solid var(--border);">▎ 一般食品（零食、調味料等）</div>
+      <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">總價值上限</td>
+          <td style="text-align: right; font-weight: 500;">USD 1,000 以內</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: var(--muted);">總重量上限</td>
+          <td style="text-align: right; font-weight: 500;">6 公斤以內</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 藥品 -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-pills"></i> 藥品</div>
+    <div class="info-card-body">
+      <div style="font-size: 10px; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 8px; padding-top: 2px;">▎ 非處方藥（OTC，如感冒藥、胃腸藥）</div>
+      <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">每種品項上限</td>
+          <td style="text-align: right; font-weight: 500;">12 瓶（盒）</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: var(--muted);">所有品項合計上限</td>
+          <td style="text-align: right; font-weight: 500;">36 瓶（盒）</td>
+        </tr>
+      </table>
+      <div style="font-size: 10px; letter-spacing: 0.12em; color: var(--gold); margin: 12px 0 8px; padding-top: 4px; border-top: 1px solid var(--border);">▎ 處方藥</div>
+      <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">未攜帶處方箋</td>
+          <td style="text-align: right; font-weight: 500;">2 個月用量</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: var(--muted);">攜帶處方箋</td>
+          <td style="text-align: right; font-weight: 500;">最多 6 個月用量</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: var(--muted); font-size: 11px;" colspan="2" style="color: var(--muted);">不得超過醫師開立數量</td>
+        </tr>
+      </table>
+      <div style="font-size: 10px; letter-spacing: 0.12em; color: var(--accent); margin: 12px 0 8px; padding-top: 4px; border-top: 1px solid var(--border);">▎ ⚠️ 管制藥品（含可待因、麻黃鹼等）</div>
+      <div class="tip-item"><span class="tip-icon">🔴</span><span>必須持有<strong>醫師處方箋</strong>，上限 6 個月用量</span></div>
+      <div class="tip-item"><span class="tip-icon">🔴</span><span><strong>不得郵寄</strong>，僅可本人隨身攜帶入境</span></div>
+      <div class="tip-item"><span class="tip-icon">🟡</span><span>購買前請確認成分，含可待因的止咳藥在台屬列管品</span></div>
+    </div>
+  </div>
+
+  <!-- 醫療器材 -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-band-aid"></i> 醫療器材上限</div>
+    <div class="info-card-body">
+      <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">OK 繃</td>
+          <td style="text-align: right; font-weight: 500;">60 個</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">液體 OK 繃</td>
+          <td style="text-align: right; font-weight: 500;">4 條</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">醫用棉棒</td>
+          <td style="text-align: right; font-weight: 500;">200 支</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">衛生棉條</td>
+          <td style="text-align: right; font-weight: 500;">120 個</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">醫用口罩</td>
+          <td style="text-align: right; font-weight: 500;">250 片</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 0; color: var(--muted);">日拋隱形眼鏡（單一度數）</td>
+          <td style="text-align: right; font-weight: 500;">60 片／度數</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px 4px 8px 0; color: var(--muted); font-size: 11px;">　↳ 限同品牌，最多 2 種度數</td>
+          <td style="text-align: right; font-weight: 500; font-size: 11px; color: var(--muted);">共 120 片上限</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: var(--muted);">矯正鏡片（眼鏡框）</td>
+          <td style="text-align: right; font-weight: 500;">1 副</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 化粧品 -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-pump-soap"></i> 化粧品</div>
+    <div class="info-card-body">
+      <div class="tip-item"><span class="tip-icon">🟢</span><span>一般化粧品依海關「入境旅客攜帶行李物品報驗稅放辦法」處理，<strong>自用合理數量</strong>即可攜入</span></div>
+      <div class="tip-item"><span class="tip-icon">🔴</span><span>以<strong>玻璃安瓿（Ampoule）為容器</strong>的精華液等產品，須事先向食藥署申請核准方可攜入</span></div>
+      <div class="tip-item"><span class="tip-icon">🟡</span><span>日本藥妝常見安瓿包裝保養品（如某些美白針劑型精華），建議購買前確認包材類型</span></div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-capsules"></i> 日本購藥小提醒</div>
+    <div class="info-card-body">
+      <div class="tip-item"><span class="tip-icon">🏥</span><span>藥妝店（薬局）分「第1類」、「第2類」、「第3類」，第1類須由藥劑師說明才可購買</span></div>
+      <div class="tip-item"><span class="tip-icon">💬</span><span>結帳時可出示手機翻譯「台湾から来ました、自分用です」讓店員確認購買資格</span></div>
+      <div class="tip-item"><span class="tip-icon">🧾</span><span>購藥記得索取收據，品名明確的收據在台灣海關查驗時有利</span></div>
+      <div class="tip-item"><span class="tip-icon">📦</span><span>建議分裝於手提行李，藥品勿全數放入託運行李箱</span></div>
+    </div>
+  </div>
+
+  <div class="info-card" style="margin-bottom: 20px;">
+    <div class="info-card-header"><i class="fas fa-wifi"></i> 實用 App</div>
+    <div class="info-card-body">
+      <div class="tip-item"><span class="tip-icon">🗺</span><span><strong>Google Maps</strong> — 東京交通路線規劃神器</span></div>
+      <div class="tip-item"><span class="tip-icon">🚇</span><span><strong>乗換案内</strong> — 日本最準確轉車 App</span></div>
+      <div class="tip-item"><span class="tip-icon">🌐</span><span><strong>Google 翻譯</strong> — 相機掃描即時翻譯日文</span></div>
+      <div class="tip-item"><span class="tip-icon">💴</span><span><strong>PayPay</strong> — 日本行動支付，多數店家接受</span></div>
+    </div>
+  </div>
+</div>
 
 <!-- Bottom Nav -->
-<div class="fixed bottom-0 w-full bg-white border-t flex">
-  <button class="nav-btn active" onclick="showTab('plan')"><i class="fa fa-list"></i><br>PLAN</button>
-  <button class="nav-btn" onclick="showTab('guide')"><i class="fa fa-book"></i><br>GUIDE</button>
-  <button class="nav-btn" onclick="showTab('wallet')"><i class="fa fa-yen-sign"></i><br>WALLET</button>
-  <button class="nav-btn" onclick="showTab('info')"><i class="fa fa-info-circle"></i><br>INFO</button>
-</div>
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="switchPage('plan', this)">
+    <i class="fas fa-calendar-alt"></i>PLAN
+  </button>
+  <button class="nav-btn" onclick="switchPage('guide', this)">
+    <i class="fas fa-book-open"></i>GUIDE
+  </button>
+  <button class="nav-btn" onclick="switchPage('wallet', this)">
+    <i class="fas fa-yen-sign"></i>WALLET
+  </button>
+  <button class="nav-btn" onclick="switchPage('info', this)">
+    <i class="fas fa-info-circle"></i>INFO
+  </button>
+</nav>
 
 <script>
-const content = document.getElementById("content");
-
-function showTab(tab){
-  document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.remove('active'));
-  event.target.closest('.nav-btn').classList.add('active');
-
-  if(tab==='plan') renderPlan();
-  if(tab==='guide') renderGuide();
-  if(tab==='wallet') renderWallet();
-  if(tab==='info') renderInfo();
+// Page switch
+function switchPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
 }
 
-/* ================= PLAN ================= */
-function renderPlan(){
-content.innerHTML = `
-<div class="card">
-<b>✈️ 航班</b><br>
-去程 CX450｜回程 CI0101<br>
-🏨 Hotel Mystays Nippori
-</div>
-
-${day("4/3 抵達",
-"機場 → 日暮里 (Skyliner)",
-"上野公園夜櫻",
-"https://maps.google.com/?q=Ueno+Park")}
-
-${day("4/4 富士山",
-"<span class='text-red-500 font-bold'>06:50 出發 → 東京站集合</span>",
-"日本橋夜櫻",
-"https://maps.google.com/?q=Tokyo+Station")}
-
-${day("4/5 淺草",
-"淺草寺 / 仲見世",
-"晴空塔 / 隅田公園",
-"https://maps.google.com/?q=Sensoji")}
-
-${day("4/6 皇居",
-"千鳥之淵",
-"東京站地下街 + 銀座",
-"https://maps.google.com/?q=Tokyo+Station")}
-
-${day("4/7 澀谷",
-"明治神宮 / 原宿",
-"SHIBUYA SKY 15:40",
-"https://maps.google.com/?q=Shibuya")}
-
-${day("4/8 文青",
-"代官山",
-"中目黑櫻花",
-"https://maps.google.com/?q=Nakameguro")}
-
-${day("4/9 新宿",
-"新宿御苑",
-"東京都廳夜景",
-"https://maps.google.com/?q=Shinjuku")}
-
-${day("4/10 Outlet",
-"東京 → 木更津",
-"購物日",
-"https://maps.google.com/?q=Kisarazu+Outlet")}
-
-${day("4/11 秋葉原",
-"電器動漫",
-"最後採購",
-"https://maps.google.com/?q=Akihabara")}
-
-<div class="card">4/12 回程 ✈️</div>
-`;
+// Toggle day
+function toggleDay(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.day-toggle');
+  body.classList.toggle('open');
+  icon.classList.toggle('open');
 }
 
-function day(title,a,b,map){
-return `
-<div class="card">
-<b>📅 ${title}</b><br><br>
-${a}<br>
-${b}<br><br>
-<a href="${map}" target="_blank" class="text-blue-500">📍 Google Maps</a>
-</div>`;
+// Calculator
+let calcExpr = '';
+let lastResult = null;
+let rate = parseFloat(localStorage.getItem('jpyRate') || '0.214');
+
+function updateRate() {
+  rate = parseFloat(document.getElementById('rateInput').value) || 0.214;
+  localStorage.setItem('jpyRate', rate);
+  if (lastResult !== null) updateDisplay(lastResult, calcExpr);
+  renderQuickRefs();
 }
 
-/* ================= GUIDE ================= */
-function renderGuide(){
-content.innerHTML = `
-<div class="card">
-<h2 class="font-semibold text-lg mb-2">🌸 千鳥之淵</h2>
-日本最著名賞櫻地之一，圍繞皇居護城河，夜晚點燈氣氛極佳。
-</div>
-
-<div class="card">
-<h2 class="font-semibold text-lg mb-2">🗼 東京晴空塔</h2>
-世界最高電波塔，高達634公尺，象徵武藏國。
-</div>
-
-<div class="card">
-<h2 class="font-semibold text-lg mb-2">🎌 淺草寺</h2>
-東京最古老寺廟，雷門為標誌性入口。
-</div>
-
-<div class="card">
-<h2 class="font-semibold text-lg mb-2">🗺 地圖</h2>
-<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=139.69,35.65,139.75,35.70&layer=mapnik" 
-style="width:100%; height:200px;"></iframe>
-</div>
-`;
+function calcInput(val) {
+  if (val === 'C') { calcExpr = ''; lastResult = null; document.getElementById('calcExpr').textContent = '—'; document.getElementById('calcResult').innerHTML = '0 <span style="font-size:14px;color:var(--muted)">JPY</span>'; document.getElementById('calcTwd').textContent = '≈ NT$ 0'; return; }
+  calcExpr += val;
+  document.getElementById('calcExpr').textContent = calcExpr.replace(/\*/g, '×').replace(/\//g, '÷');
 }
 
-/* ================= WALLET ================= */
-function renderWallet(){
-content.innerHTML = `
-<div class="card">
-<b>💱 匯率換算</b><br><br>
-
-匯率 (JPY→TWD):
-<input id="rate" value="0.22" class="w-full border p-2 rounded mt-1 mb-3">
-
-輸入金額:
-<input id="yen" placeholder="500+200*3" class="w-full border p-2 rounded mt-1 mb-3">
-
-<button onclick="calc()" class="w-full bg-gray-800 text-white py-2 rounded">計算</button>
-
-<div id="result" class="mt-3"></div>
-</div>
-`;
+function calcEqual() {
+  try {
+    const result = Function('"use strict"; return (' + calcExpr + ')')();
+    if (isNaN(result) || !isFinite(result)) { document.getElementById('calcResult').textContent = 'Error'; return; }
+    lastResult = result;
+    updateDisplay(result, calcExpr);
+    calcExpr = String(result);
+  } catch(e) {
+    document.getElementById('calcResult').textContent = 'Error';
+  }
 }
 
-function calc(){
-let rate = parseFloat(document.getElementById('rate').value);
-let yen = eval(document.getElementById('yen').value);
-document.getElementById('result').innerHTML =
-"日幣: " + yen + "<br>台幣: " + (yen*rate).toFixed(0);
+function updateDisplay(val, expr) {
+  const twd = (val * rate).toFixed(0);
+  document.getElementById('calcExpr').textContent = expr.replace(/\*/g, '×').replace(/\//g, '÷');
+  document.getElementById('calcResult').innerHTML = Number(val).toLocaleString() + ' <span style="font-size:14px;color:var(--muted)">JPY</span>';
+  document.getElementById('calcTwd').textContent = '≈ NT$ ' + Number(twd).toLocaleString();
 }
 
-/* ================= INFO ================= */
-function renderInfo(){
-content.innerHTML = `
-<div class="card">
-<b>🌤 天氣</b><br>
-<a href="https://www.jma.go.jp" target="_blank" class="text-blue-500">日本氣象廳</a>
-</div>
-
-<div class="card">
-<b>🚨 緊急電話</b><br>
-警察 110<br>
-救護車 119
-</div>
-
-<div class="card">
-<b>⚠️ 注意事項</b><br>
-• 電車禁止講電話<br>
-• 垃圾需自行帶走<br>
-• 餐廳不給小費
-</div>
-`;
+function renderQuickRefs() {
+  const refs = [500, 1000, 3000, 5000, 10000, 20000];
+  const container = document.getElementById('quickRefs');
+  container.innerHTML = refs.map(jpy => {
+    const twd = (jpy * rate).toFixed(0);
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);">
+      <span style="font-size:13px;">¥${jpy.toLocaleString()}</span>
+      <span style="font-size:13px;color:var(--gold);">NT$ ${Number(twd).toLocaleString()}</span>
+    </div>`;
+  }).join('');
 }
 
-/* default */
-renderPlan();
+// Init
+document.getElementById('rateInput').value = rate;
+renderQuickRefs();
 </script>
-
 </body>
 </html>
