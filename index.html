@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="東京助手">
+
+<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/826/826070.png">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: #f7f7f5;
+}
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.nav-btn {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+}
+.active {
+  color: #000;
+  font-weight: 600;
+}
+</style>
+</head>
+
+<body class="text-gray-700">
+
+<!-- Header -->
+<header class="p-4 text-center text-lg font-semibold">
+東京旅行助手 ✈️
+</header>
+
+<!-- Content -->
+<div id="content" class="p-4 pb-20"></div>
+
+<!-- Bottom Nav -->
+<div class="fixed bottom-0 w-full bg-white border-t flex">
+  <button class="nav-btn active" onclick="showTab('plan')"><i class="fa fa-list"></i><br>PLAN</button>
+  <button class="nav-btn" onclick="showTab('guide')"><i class="fa fa-book"></i><br>GUIDE</button>
+  <button class="nav-btn" onclick="showTab('wallet')"><i class="fa fa-yen-sign"></i><br>WALLET</button>
+  <button class="nav-btn" onclick="showTab('info')"><i class="fa fa-info-circle"></i><br>INFO</button>
+</div>
+
+<script>
+const content = document.getElementById("content");
+
+function showTab(tab){
+  document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.remove('active'));
+  event.target.closest('.nav-btn').classList.add('active');
+
+  if(tab==='plan') renderPlan();
+  if(tab==='guide') renderGuide();
+  if(tab==='wallet') renderWallet();
+  if(tab==='info') renderInfo();
+}
+
+/* ================= PLAN ================= */
+function renderPlan(){
+content.innerHTML = `
+<div class="card">
+<b>✈️ 航班</b><br>
+去程 CX450｜回程 CI0101<br>
+🏨 Hotel Mystays Nippori
+</div>
+
+${day("4/3 抵達",
+"機場 → 日暮里 (Skyliner)",
+"上野公園夜櫻",
+"https://maps.google.com/?q=Ueno+Park")}
+
+${day("4/4 富士山",
+"<span class='text-red-500 font-bold'>06:50 出發 → 東京站集合</span>",
+"日本橋夜櫻",
+"https://maps.google.com/?q=Tokyo+Station")}
+
+${day("4/5 淺草",
+"淺草寺 / 仲見世",
+"晴空塔 / 隅田公園",
+"https://maps.google.com/?q=Sensoji")}
+
+${day("4/6 皇居",
+"千鳥之淵",
+"東京站地下街 + 銀座",
+"https://maps.google.com/?q=Tokyo+Station")}
+
+${day("4/7 澀谷",
+"明治神宮 / 原宿",
+"SHIBUYA SKY 15:40",
+"https://maps.google.com/?q=Shibuya")}
+
+${day("4/8 文青",
+"代官山",
+"中目黑櫻花",
+"https://maps.google.com/?q=Nakameguro")}
+
+${day("4/9 新宿",
+"新宿御苑",
+"東京都廳夜景",
+"https://maps.google.com/?q=Shinjuku")}
+
+${day("4/10 Outlet",
+"東京 → 木更津",
+"購物日",
+"https://maps.google.com/?q=Kisarazu+Outlet")}
+
+${day("4/11 秋葉原",
+"電器動漫",
+"最後採購",
+"https://maps.google.com/?q=Akihabara")}
+
+<div class="card">4/12 回程 ✈️</div>
+`;
+}
+
+function day(title,a,b,map){
+return `
+<div class="card">
+<b>📅 ${title}</b><br><br>
+${a}<br>
+${b}<br><br>
+<a href="${map}" target="_blank" class="text-blue-500">📍 Google Maps</a>
+</div>`;
+}
+
+/* ================= GUIDE ================= */
+function renderGuide(){
+content.innerHTML = `
+<div class="card">
+<h2 class="font-semibold text-lg mb-2">🌸 千鳥之淵</h2>
+日本最著名賞櫻地之一，圍繞皇居護城河，夜晚點燈氣氛極佳。
+</div>
+
+<div class="card">
+<h2 class="font-semibold text-lg mb-2">🗼 東京晴空塔</h2>
+世界最高電波塔，高達634公尺，象徵武藏國。
+</div>
+
+<div class="card">
+<h2 class="font-semibold text-lg mb-2">🎌 淺草寺</h2>
+東京最古老寺廟，雷門為標誌性入口。
+</div>
+
+<div class="card">
+<h2 class="font-semibold text-lg mb-2">🗺 地圖</h2>
+<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=139.69,35.65,139.75,35.70&layer=mapnik" 
+style="width:100%; height:200px;"></iframe>
+</div>
+`;
+}
+
+/* ================= WALLET ================= */
+function renderWallet(){
+content.innerHTML = `
+<div class="card">
+<b>💱 匯率換算</b><br><br>
+
+匯率 (JPY→TWD):
+<input id="rate" value="0.22" class="w-full border p-2 rounded mt-1 mb-3">
+
+輸入金額:
+<input id="yen" placeholder="500+200*3" class="w-full border p-2 rounded mt-1 mb-3">
+
+<button onclick="calc()" class="w-full bg-gray-800 text-white py-2 rounded">計算</button>
+
+<div id="result" class="mt-3"></div>
+</div>
+`;
+}
+
+function calc(){
+let rate = parseFloat(document.getElementById('rate').value);
+let yen = eval(document.getElementById('yen').value);
+document.getElementById('result').innerHTML =
+"日幣: " + yen + "<br>台幣: " + (yen*rate).toFixed(0);
+}
+
+/* ================= INFO ================= */
+function renderInfo(){
+content.innerHTML = `
+<div class="card">
+<b>🌤 天氣</b><br>
+<a href="https://www.jma.go.jp" target="_blank" class="text-blue-500">日本氣象廳</a>
+</div>
+
+<div class="card">
+<b>🚨 緊急電話</b><br>
+警察 110<br>
+救護車 119
+</div>
+
+<div class="card">
+<b>⚠️ 注意事項</b><br>
+• 電車禁止講電話<br>
+• 垃圾需自行帶走<br>
+• 餐廳不給小費
+</div>
+`;
+}
+
+/* default */
+renderPlan();
+</script>
+
+</body>
+</html>
