@@ -1115,6 +1115,373 @@
     </div>
   </div>
 
+  <!-- 路線圖 -->
+  <div class="sec-label">🚇 東京交通路線圖</div>
+
+  <!-- 系統概覽 -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-info-circle"></i> 東京電車系統概覽</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="font-size: 11px; color: var(--muted); line-height: 1.9; margin-bottom: 12px;">東京電車網絡由 <strong style="color:var(--ink)">JR 東日本、東京 Metro、都營地下鐵</strong> 及多家私鐵構成。簡單理解：JR 像台鐵，範圍廣、站距長；地鐵（Metro＋都營）像捷運，站點密集適合都心移動；私鐵補足近郊路線。</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; text-align: center;">
+        <div style="background:#f5f8ff;border-radius:4px;padding:10px 6px;">
+          <div style="font-size:10px;letter-spacing:0.08em;color:#4a6fa5;font-weight:500;">JR 東日本</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:3px;line-height:1.5;">都心→近郊幹線<br>山手線・中央線等</div>
+        </div>
+        <div style="background:#fff5f5;border-radius:4px;padding:10px 6px;">
+          <div style="font-size:10px;letter-spacing:0.08em;color:#c9454a;font-weight:500;">東京 Metro</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:3px;line-height:1.5;">都心9條路線<br>銀座・六本木等</div>
+        </div>
+        <div style="background:#f5faf5;border-radius:4px;padding:10px 6px;">
+          <div style="font-size:10px;letter-spacing:0.08em;color:#4a7c59;font-weight:500;">都營地下鐵</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:3px;line-height:1.5;">補足4條路線<br>淺草・大江戶等</div>
+        </div>
+      </div>
+      <div style="margin-top: 10px; padding: 8px 12px; background: #fef9ee; border-radius: 3px; border-left: 3px solid var(--gold);">
+        <div style="font-size: 10px; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 3px;">💡 新手原則</div>
+        <div style="font-size: 11px; color: var(--muted); line-height: 1.7;">能直達先搭 JR，不好到再換地鐵。持 <strong>Suica / PASMO</strong> IC 卡可跨系統自由搭乘，無需分別購票。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JR -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-train"></i> ① JR 東日本 — 都內常用路線</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <a href="https://www.jreast.co.jp/map/pdf/map_tokyo.pdf" target="_blank" class="info-link" style="background:#f5f3ee;border-radius:3px;padding:10px 12px;margin-bottom:10px;display:flex;">
+        <div><div class="info-link-label">🗺 JR 東日本路線圖（PDF）</div><div class="info-link-sub">官方最新版</div></div>
+        <i class="fas fa-chevron-right" style="margin-left:auto;"></i>
+      </a>
+      <div style="display:grid;gap:1px;background:var(--border);border-radius:3px;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:6px 10px;font-size:9px;letter-spacing:0.1em;color:var(--gold);gap:8px;">
+          <span>路線</span><span>主要途經站點</span>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:9px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#9acd32;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">山手線</span></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">環狀線，東京・上野・池袋・新宿・澀谷・品川，約1小時繞行一圈</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:9px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#f77321;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">中央線快速</span></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">東京→御茶之水→新宿→吉祥寺→高尾，速度快</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:9px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#f5c400;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">中央總武線</span></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">千葉→秋葉原→飯田橋→代代木→吉祥寺，各站皆停</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:9px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#79c1e2;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">京濱東北線</span></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">大宮→上野→秋葉原→東京→品川→橫濱</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:9px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#cc0033;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">京葉線</span></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;">東京→舞濱（迪士尼）→海濱幕張（Outlet）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tokyo Metro -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-subway"></i> ② 東京 Metro — 9條路線</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="font-size: 11px; color: var(--muted); line-height: 1.8; margin-bottom: 10px;">適合前往 JR 未經過的都心區域，如銀座、六本木、表參道、神樂坂、清澄白河等。站點密集，短距離移動很方便。</div>
+      <a href="https://www.tokyometro.jp/lang_tc/subwaymap/" target="_blank" class="info-link" style="background:#f5f3ee;border-radius:3px;padding:10px 12px;margin-bottom:10px;display:flex;">
+        <div><div class="info-link-label">🗺 東京 Metro 官方路線圖</div><div class="info-link-sub">繁體中文版</div></div>
+        <i class="fas fa-chevron-right" style="margin-left:auto;"></i>
+      </a>
+      <a href="https://www.tokyometro.jp/station/202303_kani_ja.pdf" target="_blank" class="info-link" style="background:#f5f3ee;border-radius:3px;padding:10px 12px;margin-bottom:10px;display:flex;">
+        <div><div class="info-link-label">⤓ 下載最新版地鐵圖（PDF）</div><div class="info-link-sub">高畫質版，可放大查看</div></div>
+        <i class="fas fa-chevron-right" style="margin-left:auto;"></i>
+      </a>
+      <div style="font-size: 10px; letter-spacing: 0.12em; color: var(--gold); margin: 8px 0 8px;">▎ 9條路線識別色 ＆ 主要沿線</div>
+      <div style="display:grid;gap:1px;background:var(--border);border-radius:3px;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#f39700;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">銀座線 G</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">淺草 → 上野 → 銀座 → 表參道 → 澀谷　★觀光主幹線</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#e60012;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">丸之內線 M</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">池袋 → 新宿 → 東京 → 銀座 → 後樂園　購物商圈密集</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#9b7cb6;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">日比谷線 H</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">中目黑 → 六本木 → 銀座 → 秋葉原 → 上野</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#00a7db;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">東西線 T</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">中野 → 大手町 → 日本橋 → 門前仲町</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#00bb85;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">千代田線 C</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">代代木上原 → 表參道 → 大手町 → 北千住</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#c8a000;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">有樂町線 Y</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">池袋 → 有樂町 → 豐洲　銀座周邊灣岸移動</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#8f76d6;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">半藏門線 Z</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">澀谷 → 表參道 → 大手町 → 押上（晴空塔）</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#00ac9b;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">南北線 N</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">目黑 → 四谷 → 王子　連接南北縱貫都心</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#9c5e31;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">副都心線 F</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">澀谷 → 新宿三丁目 → 池袋　直通東急東橫線</div>
+        </div>
+      </div>
+      <div style="margin-top: 10px; padding: 8px 12px; background: #fff8f0; border-radius: 3px; border-left: 3px solid var(--accent);">
+        <div style="font-size: 10px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 3px;">⚠️ 搭乘注意</div>
+        <div style="font-size: 11px; color: var(--muted); line-height: 1.7;">地下通道出口多，事先查好出口號碼可避免迷路。末班車通常比 JR 早，夜間移動請先確認班次。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 都營 -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-subway"></i> ③ 都營地下鐵 — 4條路線</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="font-size: 11px; color: var(--muted); line-height: 1.8; margin-bottom: 10px;">補足 Metro 未覆蓋的區域。注意：都營與東京 Metro <strong style="color:var(--ink)">分屬不同公司</strong>，票券不通用，轉乘需出站再進站。</div>
+      <a href="https://www.kotsu.metro.tokyo.jp/ch_t/services/subway/map.html" target="_blank" class="info-link" style="background:#f5f3ee;border-radius:3px;padding:10px 12px;margin-bottom:10px;display:flex;">
+        <div><div class="info-link-label">🗺 都營地下鐵路線圖</div><div class="info-link-sub">東京都交通局 · 繁體中文版</div></div>
+        <i class="fas fa-chevron-right" style="margin-left:auto;"></i>
+      </a>
+      <div style="display:grid;gap:1px;background:var(--border);border-radius:3px;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#e0171f;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">淺草線 A</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">押上 → 淺草 → 日本橋 → 新橋　可直通京成・京急（往機場）</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#0079c2;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">三田線 I</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">目黑 → 芝公園（東京鐵塔）→ 大手町 → 巢鴨</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#6cbb5a;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">新宿線 S</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">新宿 → 九段下（千鳥之淵）→ 神保町 → 森下</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:8px 10px;gap:10px;align-items:start;">
+          <div style="display:flex;align-items:center;gap:5px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:50%;background:#b6007a;flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;font-weight:500;">大江戶線 E</span></div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">六本木 → 汐留 → 新宿 → 中野坂上（環狀線）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 私鐵 -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-route"></i> ④ 主要私鐵 — 近郊移動</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="font-size: 11px; color: var(--muted); line-height: 1.8; margin-bottom: 10px;">此行涉及的主要私鐵路線：</div>
+      <div style="display:grid;gap:1px;background:var(--border);border-radius:3px;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <span style="font-size:11px;font-weight:500;white-space:nowrap;color:#d03a2f;">京成電鐵</span>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">日暮里 → 成田機場　含 Skyliner 特快（約40分）</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:8px 10px;gap:10px;align-items:start;">
+          <span style="font-size:11px;font-weight:500;white-space:nowrap;color:#1a6fbf;">東急電鐵</span>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">澀谷 → 代官山 → 中目黑（東橫線）</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--white);padding:8px 10px;gap:10px;align-items:start;">
+          <span style="font-size:11px;font-weight:500;white-space:nowrap;color:#e8a000;">小田急電鐵</span>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">新宿 → 箱根・江之島・鎌倉方向</div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr;background:var(--paper);padding:8px 10px;gap:10px;align-items:start;">
+          <span style="font-size:11px;font-weight:500;white-space:nowrap;color:#004b9e;">東武鐵道</span>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;">淺草 → 日光・鬼怒川　池袋 → 川越</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 路線查詢 -->
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-search"></i> 路線查詢工具</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <a href="https://tokyo.letsgojp.com/archives/81715/" target="_blank" class="info-link">
+        <div><div class="info-link-label">🔗 樂吃購！東京交通完整攻略</div><div class="info-link-sub">路線圖・票券比較・私鐵詳解</div></div>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+      <a href="https://tokyo.letsgojp.com/archives/77668/" target="_blank" class="info-link">
+        <div><div class="info-link-label">🎫 東京地鐵通票怎麼選？</div><div class="info-link-sub">24h / 48h / 72h 通票比較</div></div>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+      <a href="https://transit.yahoo.co.jp" target="_blank" class="info-link" style="border-bottom:none;">
+        <div><div class="info-link-label">Yahoo! 乗換案内</div><div class="info-link-sub">即時班次・月台・票價查詢</div></div>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- 常用日語 -->
+  <div class="sec-label">🗣 簡易常用日語</div>
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-comment-dots"></i> 基本寒暄</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="display: grid; gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 6px 10px; font-size: 9px; letter-spacing: 0.1em; color: var(--gold);">
+          <span>中文</span><span>日文</span><span>英文拼音</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span style="color: var(--ink);">你好</span><span style="font-family: 'Noto Serif JP', serif;">こんにちは</span><span style="color: var(--muted); font-size: 10px;">Konnichiwa</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span style="color: var(--ink);">早安</span><span style="font-family: 'Noto Serif JP', serif;">おはようございます</span><span style="color: var(--muted); font-size: 10px;">Ohayou gozaimasu</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span style="color: var(--ink);">晚安</span><span style="font-family: 'Noto Serif JP', serif;">こんばんは</span><span style="color: var(--muted); font-size: 10px;">Konbanwa</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span style="color: var(--ink);">謝謝</span><span style="font-family: 'Noto Serif JP', serif;">ありがとうございます</span><span style="color: var(--muted); font-size: 10px;">Arigatou gozaimasu</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span style="color: var(--ink);">不好意思</span><span style="font-family: 'Noto Serif JP', serif;">すみません</span><span style="color: var(--muted); font-size: 10px;">Sumimasen</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span style="color: var(--ink);">對不起</span><span style="font-family: 'Noto Serif JP', serif;">ごめんなさい</span><span style="color: var(--muted); font-size: 10px;">Gomen nasai</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span style="color: var(--ink);">好的</span><span style="font-family: 'Noto Serif JP', serif;">はい</span><span style="color: var(--muted); font-size: 10px;">Hai</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span style="color: var(--ink);">不是／不</span><span style="font-family: 'Noto Serif JP', serif;">いいえ</span><span style="color: var(--muted); font-size: 10px;">Iie</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-shopping-bag"></i> 購物 · 結帳</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="display: grid; gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 6px 10px; font-size: 9px; letter-spacing: 0.1em; color: var(--gold);">
+          <span>中文</span><span>日文</span><span>英文拼音</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>這個多少錢？</span><span style="font-family: 'Noto Serif JP', serif;">これはいくらですか？</span><span style="color: var(--muted); font-size: 10px;">Kore wa ikura desu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>我要買這個</span><span style="font-family: 'Noto Serif JP', serif;">これをください</span><span style="color: var(--muted); font-size: 10px;">Kore wo kudasai</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>可以刷卡嗎？</span><span style="font-family: 'Noto Serif JP', serif;">カードは使えますか？</span><span style="color: var(--muted); font-size: 10px;">Kaado wa tsukaemasu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>有免稅嗎？</span><span style="font-family: 'Noto Serif JP', serif;">免税できますか？</span><span style="color: var(--muted); font-size: 10px;">Menzei dekimasu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>不需要袋子</span><span style="font-family: 'Noto Serif JP', serif;">袋は要りません</span><span style="color: var(--muted); font-size: 10px;">Fukuro wa irimasen</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>請給我收據</span><span style="font-family: 'Noto Serif JP', serif;">レシートをください</span><span style="color: var(--muted); font-size: 10px;">Reshiito wo kudasai</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>有沒有更大？</span><span style="font-family: 'Noto Serif JP', serif;">もっと大きいですか？</span><span style="color: var(--muted); font-size: 10px;">Motto ookii desu ka?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-utensils"></i> 餐廳 · 點餐</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="display: grid; gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 6px 10px; font-size: 9px; letter-spacing: 0.1em; color: var(--gold);">
+          <span>中文</span><span>日文</span><span>英文拼音</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>兩位</span><span style="font-family: 'Noto Serif JP', serif;">二人です</span><span style="color: var(--muted); font-size: 10px;">Futari desu</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>請給我菜單</span><span style="font-family: 'Noto Serif JP', serif;">メニューをください</span><span style="color: var(--muted); font-size: 10px;">Menyuu wo kudasai</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>我要點餐</span><span style="font-family: 'Noto Serif JP', serif;">注文をお願いします</span><span style="color: var(--muted); font-size: 10px;">Chuumon wo onegaishimasu</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>這個一份</span><span style="font-family: 'Noto Serif JP', serif;">これをひとつ</span><span style="color: var(--muted); font-size: 10px;">Kore wo hitotsu</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>很好吃！</span><span style="font-family: 'Noto Serif JP', serif;">おいしい！</span><span style="color: var(--muted); font-size: 10px;">Oishii!</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>麻煩結帳</span><span style="font-family: 'Noto Serif JP', serif;">お会計をお願いします</span><span style="color: var(--muted); font-size: 10px;">Okaikei wo onegaishimasu</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>分開結帳</span><span style="font-family: 'Noto Serif JP', serif;">別々でお願いします</span><span style="color: var(--muted); font-size: 10px;">Betsubetsu de onegaishimasu</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>不辣</span><span style="font-family: 'Noto Serif JP', serif;">辛くしないでください</span><span style="color: var(--muted); font-size: 10px;">Karaku shinaide kudasai</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header"><i class="fas fa-map-signs"></i> 問路 · 交通</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="display: grid; gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 6px 10px; font-size: 9px; letter-spacing: 0.1em; color: var(--gold);">
+          <span>中文</span><span>日文</span><span>英文拼音</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>○○在哪裡？</span><span style="font-family: 'Noto Serif JP', serif;">○○はどこですか？</span><span style="color: var(--muted); font-size: 10px;">〇〇 wa doko desu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>車站在哪裡？</span><span style="font-family: 'Noto Serif JP', serif;">駅はどこですか？</span><span style="color: var(--muted); font-size: 10px;">Eki wa doko desu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>廁所在哪裡？</span><span style="font-family: 'Noto Serif JP', serif;">トイレはどこですか？</span><span style="color: var(--muted); font-size: 10px;">Toire wa doko desu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>請問怎麼走？</span><span style="font-family: 'Noto Serif JP', serif;">どうやって行きますか？</span><span style="color: var(--muted); font-size: 10px;">Douyatte ikimasu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>到○○要多久？</span><span style="font-family: 'Noto Serif JP', serif;">○○まで何分ですか？</span><span style="color: var(--muted); font-size: 10px;">〇〇 made nanpun desu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>搭這班對嗎？</span><span style="font-family: 'Noto Serif JP', serif;">これで合っていますか？</span><span style="color: var(--muted); font-size: 10px;">Kore de atte imasu ka?</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>請在這裡停</span><span style="font-family: 'Noto Serif JP', serif;">ここで止めてください</span><span style="color: var(--muted); font-size: 10px;">Koko de tomete kudasai</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card" style="margin-bottom: 20px;">
+    <div class="info-card-header"><i class="fas fa-medkit"></i> 緊急 · 求助</div>
+    <div class="info-card-body" style="padding: 12px 16px;">
+      <div style="display: grid; gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 6px 10px; font-size: 9px; letter-spacing: 0.1em; color: var(--gold);">
+          <span>中文</span><span>日文</span><span>英文拼音</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>我聽不懂</span><span style="font-family: 'Noto Serif JP', serif;">わかりません</span><span style="color: var(--muted); font-size: 10px;">Wakarimasen</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>請說慢一點</span><span style="font-family: 'Noto Serif JP', serif;">ゆっくり話してください</span><span style="color: var(--muted); font-size: 10px;">Yukkuri hanashite kudasai</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>救命！</span><span style="font-family: 'Noto Serif JP', serif;">助けてください！</span><span style="color: var(--muted); font-size: 10px;">Tasukete kudasai!</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>我身體不舒服</span><span style="font-family: 'Noto Serif JP', serif;">気分が悪いです</span><span style="color: var(--muted); font-size: 10px;">Kibun ga warui desu</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>請叫救護車</span><span style="font-family: 'Noto Serif JP', serif;">救急車を呼んでください</span><span style="color: var(--muted); font-size: 10px;">Kyuukyuusha wo yonde kudasai</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--paper); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>我的東西被偷了</span><span style="font-family: 'Noto Serif JP', serif;">盗まれました</span><span style="color: var(--muted); font-size: 10px;">Nusumaremashita</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 2fr 2fr 3fr; background: var(--white); padding: 9px 10px; font-size: 11px; gap: 4px; align-items: center;">
+          <span>請叫警察</span><span style="font-family: 'Noto Serif JP', serif;">警察を呼んでください</span><span style="color: var(--muted); font-size: 10px;">Keisatsu wo yonde kudasai</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- Bottom Nav -->
